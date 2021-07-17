@@ -12,4 +12,4 @@ resources:
 
 images:
 - name: k3d-message-board:5000/message-board
-  newTag: bd98d3d
+  newTag: "0875449"

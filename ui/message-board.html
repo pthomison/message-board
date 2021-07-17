@@ -3,6 +3,13 @@
 
 	<div id="message-stream">
 		<h2>The Message Steam</h2>
+
+		{{range $msg := .Messages }}
+		     <p>{{$msg.Author}}</p>
+		     <p>{{$msg.Message}}</p>
+		     <p>{{$msg.Date}}</p>
+		{{end}}
+
 	</div>
 	<div id="message-editor">
 		<h2>The Message Editor</h2>
