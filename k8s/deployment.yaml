@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: message-board
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: message-board
+  template:
+    metadata:
+      labels:
+        k8s-app: message-board
+    spec:
+      containers:
+      - name: coredns
+        image: k3d-message-board:5000/message-board:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 10m
+            memory: 100Mi
+
