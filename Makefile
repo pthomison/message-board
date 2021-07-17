@@ -1,5 +1,6 @@
 PUBLIC_IMAGE_NAME=pthomison/message-board
 PRIVATE_IMAGE_NAME=localhost:9267/message-board
+CLUSTER_IMAGE_NAME=k3d-message-board:5000/message-board
 IMAGE_TAG=$(shell git rev-parse --short HEAD)
 
 
@@ -17,7 +18,7 @@ build:
 
 deploy:
 	kubectl get ns message-board || kubectl create ns message-board
-	cd k8s && kustomize edit set image ${PRIVATE_IMAGE_NAME}:${IMAGE_TAG}
+	cd k8s && kustomize edit set image ${CLUSTER_IMAGE_NAME}:${IMAGE_TAG}
 	kubectl --cluster="k3d-message-board" apply -k ./k8s
 
 clean-deploy:

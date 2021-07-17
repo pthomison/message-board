@@ -11,5 +11,9 @@ resources:
 - service.yaml
 
 images:
+- name: k3d-message-board:5000/message-board
+  newTag: f358399
+- name: k3d-message-board:9267/message-board
+  newTag: f358399
 - name: localhost:9267/message-board
   newTag: 60e77a5
