@@ -16,7 +16,7 @@ build:
 	goreleaser release --skip-publish --snapshot --rm-dist
 	skopeo copy --dest-tls-verify=false docker-daemon:${PUBLIC_IMAGE_NAME}:latest docker://${PRIVATE_IMAGE_NAME}:${IMAGE_TAG}
 
-deploy:
+deploy: build
 	kubectl get ns message-board || kubectl create ns message-board
 	cd k8s && kustomize edit set image ${CLUSTER_IMAGE_NAME}:${IMAGE_TAG}
 	kubectl --cluster="k3d-message-board" apply -k ./k8s

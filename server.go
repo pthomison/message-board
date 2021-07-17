@@ -1,4 +1,4 @@
-package cmd
+package main
 
 import (
 	"fmt"
@@ -6,6 +6,13 @@ import (
 	"log"
 	"net/http"
 )
+
+type Employee struct {
+	FirstName   string
+	LastName    string
+	TotalLeaves int
+	LeavesTaken int
+}
 
 func RunServer() {
 	http.HandleFunc("/", messageBoardHandler)
