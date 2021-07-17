@@ -1,17 +1,39 @@
-<div id="message-board">
-	<h1>The Message Board</h1>
+<!doctype html>
 
-	<div id="message-stream">
-		<h2>The Message Steam</h2>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-		{{range $msg := .Messages }}
-		     <p>{{$msg.Author}}</p>
-		     <p>{{$msg.Message}}</p>
-		     <p>{{$msg.Date}}</p>
-		{{end}}
+  <title>Message Board</title>
+  <meta name="description" content="Message Boad Application">
+  <meta name="author" content="Patrick Thomison">
 
+  <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+	<div id="message-board">
+		<h1>The Message Board</h1>
+
+		<div id="message-stream">
+			<h2>The Message Steam</h2>
+
+			{{range $msg := .Messages }}
+			     <p>{{$msg.Author}}</p>
+			     <p>{{$msg.Message}}</p>
+			     <p>{{$msg.Date}}</p>
+			{{end}}
+
+		</div>
+		<div id="message-editor">
+			<h2>The Message Editor</h2>
+		</div>
 	</div>
-	<div id="message-editor">
-		<h2>The Message Editor</h2>
-	</div>
-</div>
+</body>
+</html>
+
+
+
+

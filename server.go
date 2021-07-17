@@ -17,6 +17,8 @@ type Employee struct {
 func RunServer() {
 	http.HandleFunc("/", messageBoardHandler)
 
+	http.HandleFunc("/style.css", cssHandler)
+
 	http.HandleFunc("/bar", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
 	})
