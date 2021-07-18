@@ -12,6 +12,8 @@ import (
 var css embed.FS
 
 func cssHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Content Type", "text/css")
+
 	t, err := template.ParseFS(css, "ui/*.css")
 	utils.Check(err)
 	err = t.Execute(w, nil)
