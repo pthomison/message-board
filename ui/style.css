@@ -1,11 +1,11 @@
 #message-stream {
-	border: -4px dotted red;
-	width:  50%;
+	border: 4px dotted red;
+	width:  48%;
 	float: right;
 }
 
 #message-editor {
-	border: -4px dotted blue;
-	width:  50%;
+	border: 4px dotted blue;
+	width:  48%;
 	float:  left;
 }
