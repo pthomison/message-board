@@ -12,4 +12,4 @@ resources:
 
 images:
 - name: k3d-message-board:5000/message-board
-  newTag: 6e0098e
+  newTag: da39a3ee5e6b4b0d3255bfef95601890afd80709

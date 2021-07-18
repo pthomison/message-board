@@ -2,6 +2,7 @@ PUBLIC_IMAGE_NAME=pthomison/message-board
 PRIVATE_IMAGE_NAME=localhost:9267/message-board
 CLUSTER_IMAGE_NAME=k3d-message-board:5000/message-board
 IMAGE_TAG=$(shell git rev-parse --short HEAD)
+# IMAGE_TAG=$(shell find . -type f -print0 | grep -v dist | sort -z | xargs -0 sha1sum | sha1sum | cut -f 1 -d ' ')
 
 
 create-cluster:

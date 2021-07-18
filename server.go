@@ -1,15 +1,14 @@
 package main
 
 import (
-	"embed"
 	"fmt"
 	"html"
 	"log"
 	"net/http"
 )
 
-//go:embed ui/*.css
-var css embed.FS
+// //go:embed ui/*.css
+// var css embed.FS
 
 func RunServer() {
 	http.HandleFunc("/", messageBoardHandler)
