@@ -14,9 +14,9 @@ var css embed.FS
 func RunServer() {
 	http.HandleFunc("/", messageBoardHandler)
 
-	// http.HandleFunc("/style.css", cssHandler)
+	http.HandleFunc("/style.css", cssHandler)
 
-	http.Handle("/css/", http.FileServer(http.FS(css)))
+	// http.Handle("/css/", http.FileServer(http.FS(css)))
 
 	http.HandleFunc("/bar", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
