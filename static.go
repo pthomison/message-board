@@ -1,21 +1,21 @@
 package main
 
-import (
-	"embed"
-	"html/template"
-	"net/http"
+// import (
+// 	"embed"
+// 	"html/template"
+// 	"net/http"
 
-	utils "github.com/pthomison/golang-utils"
-)
+// 	utils "github.com/pthomison/golang-utils"
+// )
 
-//go:embed ui/*.css
-var css embed.FS
+// //go:embed ui/*.css
+// var css embed.FS
 
-func cssHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content Type", "text/css")
+// func cssHandler(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Add("Content Type", "text/css")
 
-	t, err := template.ParseFS(css, "ui/*.css")
-	utils.Check(err)
-	err = t.Execute(w, nil)
-	utils.Check(err)
-}
+// 	t, err := template.ParseFS(css, "ui/*.css")
+// 	utils.Check(err)
+// 	err = t.Execute(w, nil)
+// 	utils.Check(err)
+// }
