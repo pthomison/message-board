@@ -16,22 +16,42 @@
 </head>
 
 <body>
-	<div id="message-board">
+	<div id="message-board" class="container overflow-hidden h-100">
 		<h1>The Message Board</h1>
 
-		<div id="message-stream" class="col-md-8">
-			<h2>The Message Steam</h2>
+		<div class="row gy-5 h-100">
+			<div id="message-stream" class="col-md-7 bg-light p-3">
+				<h2>The Message Stream</h2>
 
-			{{range $msg := .Messages }}
-			     <p>{{$msg.Author}}</p>
-			     <p>{{$msg.Message}}</p>
-			     <p>{{$msg.Date}}</p>
-			{{end}}
+				{{range $msg := .Messages }}
+						<div class="">
+							<p>{{$msg.Author}}</p>
+							<p>{{$msg.Message}}</p>
+							<p>{{$msg.Date}}</p>
+				   	</div>
+				{{end}}
+			</div>
+
+			<div id="message-editor" class="col-md-4 bg-light offset-md-1">
+				<h2>The Message Editor</h2>
+
+
+				<form action="/message" method="post" class="form-example">
+					<div>
+					  <label for="email" class="form-label">Email address</label>
+					  <input type="email" class="form-control" id="email" placeholder="name@example.com">
+					</div>
+					<div>
+					  <label for="message" class="form-label">Message</label>
+					  <textarea class="form-control" id="message" rows="5"></textarea>
+					</div>
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form>
+
+			</div>
 
 		</div>
-		<div id="message-editor" class="col-md-4">
-			<h2>The Message Editor</h2>
-		</div>
+
 	</div>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

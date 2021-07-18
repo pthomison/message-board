@@ -1,11 +1,17 @@
 #message-stream {
-	border: 4px dotted red;
-	width:  48%;
-	float: right;
+	/*background-color: red;*/
+	float: left;
 }
 
 #message-editor {
-	border: 4px dotted blue;
-	width:  48%;
-	float:  left;
+	/*background-color: blue;*/
+	float:  right;
+}
+
+.column {
+	background-color: green;
+}
+
+html,body {
+  height: 100%;
 }
