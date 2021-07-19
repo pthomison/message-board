@@ -32,6 +32,9 @@ func messagePostHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("key:", k)
 		fmt.Println("val:", strings.Join(v, ""))
 	}
+
+	fmt.Printf("%+v\n", r)
+
 	fmt.Fprintf(w, "Thanks for the data!") // write data to response
 }
 
