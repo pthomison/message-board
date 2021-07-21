@@ -4,6 +4,8 @@ CLUSTER_IMAGE_NAME=k3d-message-board:5000/message-board
 IMAGE_TAG=$(shell git rev-parse --short HEAD)
 # IMAGE_TAG=$(shell find . -type f -print0 | grep -v dist | sort -z | xargs -0 sha1sum | sha1sum | cut -f 1 -d ' ')
 
+gen-tag:
+	jot -r 1 1 999999999999999999 > .tag
 
 create-cluster:
 	k3d registry create message-board -p 9267
@@ -13,14 +15,18 @@ delete-cluster:
 	k3d cluster delete message-board
 	k3d registry delete message-board
 
-build:
+build: gen-tag
 	goreleaser release --skip-publish --snapshot --rm-dist
-	skopeo copy --dest-tls-verify=false docker-daemon:${PUBLIC_IMAGE_NAME}:latest docker://${PRIVATE_IMAGE_NAME}:${IMAGE_TAG}
+	skopeo copy --dest-tls-verify=false docker-daemon:${PUBLIC_IMAGE_NAME}:latest docker://${PRIVATE_IMAGE_NAME}:$(shell cat ./.tag)
 
 deploy: build
 	kubectl get ns message-board || kubectl create ns message-board
-	cd k8s && kustomize edit set image ${CLUSTER_IMAGE_NAME}:${IMAGE_TAG}
-	kubectl --cluster="k3d-message-board" apply -k ./k8s
+	cd k8s && kustomize edit set image ${CLUSTER_IMAGE_NAME}:$(shell cat ./.tag)
+	kubectl --cluster="k3d-message-board" apply -k ./k8s --wait=true
+
+port-forward: deploy
+	sleep 5
+	kubectl port-forward -n message-board service/message-board 8080
 
 clean-deploy:
 	kubectl --cluster="k3d-message-board" delete -k ./k8s
