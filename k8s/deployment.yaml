@@ -13,7 +13,7 @@ spec:
         k8s-app: message-board
     spec:
       containers:
-      - name: coredns
+      - name: message-board
         image: k3d-message-board:5000/message-board:latest
         imagePullPolicy: IfNotPresent
         ports:
