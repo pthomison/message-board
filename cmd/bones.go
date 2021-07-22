@@ -1,4 +1,4 @@
-package main
+package cmd
 
 func bones() MessageBoard {
 	return MessageBoard{

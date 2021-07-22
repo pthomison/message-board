@@ -1,6 +1,7 @@
-package main
+package cmd
 
 import (
+	"io/fs"
 	"log"
 	"net/http"
 
@@ -8,10 +9,11 @@ import (
 )
 
 type server struct {
-	mb MessageBoard
+	mb        MessageBoard
+	uiAssests fs.FS
 }
 
-func RunServer() {
+func RunServer(uiAssests fs.FS) {
 	s := server{}
 
 	http.HandleFunc("/", s.messageBoardHandler)

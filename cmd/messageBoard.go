@@ -1,7 +1,6 @@
-package main
+package cmd
 
 import (
-	"embed"
 	"html/template"
 	"net/http"
 
@@ -12,11 +11,11 @@ type MessageBoard struct {
 	Messages []Message
 }
 
-//go:embed ui/message-board.html
-var mbHtml embed.FS
+// //go:embed ui/message-board.html
+// var mbHtml embed.FS
 
 func (s *server) messageBoardHandler(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFS(mbHtml, "ui/*")
+	t, err := template.ParseFS(s.uiAssests, "ui/message-board.html")
 	utils.Check(err)
 	err = t.Execute(w, s.mb)
 	utils.Check(err)
