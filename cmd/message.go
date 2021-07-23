@@ -45,8 +45,6 @@ func (s *server) messagePostHandler(w http.ResponseWriter, r *http.Request) {
 		Message: message,
 	})
 
-	// s.mb = bones()
-
 	http.Redirect(w, r, "/", 301)
 
 	// fmt.Fprintf(w, "Thanks for the data!") // write data to response

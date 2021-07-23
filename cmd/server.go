@@ -14,7 +14,10 @@ type server struct {
 }
 
 func RunServer(uiAssests fs.FS) {
-	s := server{}
+	s := server{
+		uiAssests: uiAssests,
+		mb:        bones(),
+	}
 
 	http.HandleFunc("/", s.messageBoardHandler)
 

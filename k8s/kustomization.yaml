@@ -12,4 +12,4 @@ resources:
 
 images:
 - name: k3d-message-board:5000/message-board
-  newTag: "572173831984400768"
+  newTag: "168102081166580320"
