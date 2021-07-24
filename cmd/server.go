@@ -16,7 +16,7 @@ type server struct {
 func RunServer(uiAssests fs.FS) {
 	s := server{
 		uiAssests: uiAssests,
-		mb:        bones(),
+		// mb:        bones(),
 	}
 
 	http.HandleFunc("/", s.messageBoardHandler)
@@ -26,6 +26,8 @@ func RunServer(uiAssests fs.FS) {
 	http.HandleFunc("/script.js", s.jsHandler)
 
 	http.HandleFunc("/message", s.messageHandler)
+
+	http.Handle("/message-stream", websocket.Handler(MessageStream))
 
 	http.Handle("/echo", websocket.Handler(EchoServer))
 
