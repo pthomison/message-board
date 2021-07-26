@@ -9,20 +9,15 @@ import (
 // Echo the data received on the WebSocket.
 func (s *server) MessageStream(ws *websocket.Conn) {
 	fmt.Printf("jsonServer %#v\n", ws.Config())
-	for k, v := range s.wb {
-		var msg T
-		err := websocket.JSON.Receive(ws, &msg)
+	for _, v := range s.mb.Messages {
+		// var msg Message
+		err := websocket.JSON.Send(ws, v)
+		fmt.Println("error", err)
 		if err != nil {
-			fmt.Println(err)
+			fmt.Println("error", err)
 			break
 		}
-		fmt.Printf("recv:%#v\n", msg)
-		err = websocket.JSON.Send(ws, msg)
-		if err != nil {
-			fmt.Println(err)
-			break
-		}
-		fmt.Printf("send:%#v\n", msg)
+		fmt.Printf("send:%#v\n", v)
 	}
 	fmt.Println("jsonServer finished")
 }

@@ -16,7 +16,7 @@ type server struct {
 func RunServer(uiAssests fs.FS) {
 	s := server{
 		uiAssests: uiAssests,
-		// mb:        bones(),
+		mb:        bones(),
 	}
 
 	http.HandleFunc("/", s.messageBoardHandler)
@@ -27,9 +27,12 @@ func RunServer(uiAssests fs.FS) {
 
 	http.HandleFunc("/message", s.messageHandler)
 
-	http.Handle("/message-stream", websocket.Handler(MessageStream))
+	http.Handle("/message-stream", websocket.Handler(s.MessageStream))
 
 	http.Handle("/echo", websocket.Handler(EchoServer))
+
+	http.Handle("/ping", websocket.Handler(PingServer))
+
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

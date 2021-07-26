@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"time"
 	"net/http"
 )
 
@@ -9,6 +10,7 @@ type Message struct {
 	Author  string
 	Message string
 	Date    string
+	Timestamp time.Time
 }
 
 func (s *server) messageHandler(w http.ResponseWriter, r *http.Request) {

@@ -25,7 +25,8 @@ deploy: build
 	kubectl --cluster="k3d-message-board" apply -k ./k8s --wait=true
 
 port-forward: deploy
-	sleep 5
+	kubectl -n message-board rollout status deploy/message-board
+	sleep 1
 	kubectl port-forward -n message-board service/message-board 8080
 
 clean-deploy:
