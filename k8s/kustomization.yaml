@@ -9,6 +9,3 @@ commonLabels:
 resources:
 - deployment.yaml
 - service.yaml
-
-images:
-- name: k3d-message-board:5000/message-board
