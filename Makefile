@@ -5,11 +5,11 @@ IMAGE_TAG=$(shell git rev-parse --short HEAD)
 # IMAGE_TAG=$(shell find . -type f -print0 | grep -v dist | sort -z | xargs -0 sha1sum | sha1sum | cut -f 1 -d ' ')
 
 gen-tag:
-	jot -r 1 1 999999999999999999 > .tag
+	awk -v min=1 -v max=9999999 'BEGIN{srand(); print int(min+rand()*(max-min+1))}' > .tag
 
 create-cluster:
 	k3d registry create message-board -p 9267
-	k3d cluster create message-board --registry-use k3d-message-board:9267 
+	k3d cluster create message-board --registry-use k3d-message-board:9267 -v /dev/mapper:/dev/mapper 
 
 delete-cluster:
 	k3d cluster delete message-board
