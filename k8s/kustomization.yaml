@@ -11,4 +11,4 @@ resources:
 - service.yaml
 images:
 - name: k3d-message-board:5000/message-board
-  newTag: "8418113"
+  newTag: "6549308"

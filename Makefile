@@ -7,6 +7,9 @@ IMAGE_TAG=$(shell git rev-parse --short HEAD)
 gen-tag:
 	awk -v min=1 -v max=9999999 'BEGIN{srand(); print int(min+rand()*(max-min+1))}' > .tag
 
+webpack: ui-deps
+	cd ui && npm run-script build-dev
+
 create-cluster:
 	k3d registry create message-board -p 9267
 	k3d cluster create message-board --registry-use k3d-message-board:9267 -v /dev/mapper:/dev/mapper 
@@ -15,7 +18,7 @@ delete-cluster:
 	k3d cluster delete message-board
 	k3d registry delete message-board
 
-build: gen-tag
+build: webpack gen-tag
 	goreleaser release --skip-publish --snapshot --rm-dist
 	skopeo copy --dest-tls-verify=false docker-daemon:${PUBLIC_IMAGE_NAME}:latest docker://${PRIVATE_IMAGE_NAME}:$(shell cat ./.tag)
 
@@ -31,3 +34,9 @@ port-forward: deploy
 
 clean-deploy:
 	kubectl --cluster="k3d-message-board" delete -k ./k8s
+
+ui-deps:
+	cd ui && npm install
+
+clean-ui-deps:
+	rm -rf ./ui/node_modules
