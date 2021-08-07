@@ -7,7 +7,7 @@ IMAGE_TAG=$(shell git rev-parse --short HEAD)
 gen-tag:
 	awk -v min=1 -v max=9999999 'BEGIN{srand(); print int(min+rand()*(max-min+1))}' > .tag
 
-webpack: ui-deps
+webpack:
 	cd ui && npm run-script build-dev
 
 create-cluster:

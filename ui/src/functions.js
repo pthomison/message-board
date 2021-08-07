@@ -1,32 +1,26 @@
+import Sarus from '@anephenix/sarus';
 
-function connectToWSS() {
+var $ = require('jquery');
+
+
+
+export function ConnectToWSS() {
     console.log("connecting the websocket")
 
-    const ws = new WebSocket("ws://127.0.0.1:8080/message-stream")
+    const sarus = new Sarus({
+      url: "ws://127.0.0.1:8080/message-stream",
+    });
 
-    // ws.onclose = function(event) {
-    //     ws.terminate()
-    //     clearTimeout(ws.pingTimeout)
-    //     setTimeout(() => {
-    //         ws.removeAllListeners()
-    //         ws = connectToWSS()
-    //     }, autoReconnectDelay)
-    // }
+    sarus.on('message', event => {
+        AddMessage(JSON.parse(event.data));
+    });
+}
 
-    // ws.onerror =  function(err) {
-    //     if (err.code === 'ECONNREFUSED') {
-    //         ws.removeAllListeners()
-    //         ws = (connectToWSS()).ws
-    //     }
-
-    //     ws.terminate()
-    // }
-    
-    ws.onmessage = function(message) {
-		AddMessage(JSON.parse(message.data))
-    }
-
-    return ws
+export function RegisterFormEvents() {
+    $( "#message-form" ).submit(function( event ) {
+      event.preventDefault();
+      SendMessage()
+    });
 }
 
 function AddMessage(message) {
@@ -34,22 +28,26 @@ function AddMessage(message) {
 	var message = message.Message
 	var date = message.Date
 
-	console.log("Message is received...");
-	console.log(message);
-	$('#message-stream').append(`<div class='message border'><p>${author}</p><p>${message}</p><p>${date}</p></div>`)	
+	$('#message-stream-messages').append(`<div class='message border'><p>${author}</p><p>${message}</p><p>${date}</p></div>`)	
 }
 
 function SendMessage() {
-    var email = document.getElementById("email");
-    var message = document.getElementById("message");
+    var email = $( "#email" ).val();
+    var message = $( "#message" ).val();
 
-    if (!conn) {
-        return false;
-    }
-    if (!msg.value) {
-        return false;
-    }
-    conn.send(msg.value);
-    msg.value = "";
-    return false;
+    var obj = {"Author": email, "Message": message};
+
+    // Connect to a WebSocket server
+    const ws = new Sarus({
+      url: "ws://127.0.0.1:8080/message-receive",
+    });
+
+    ws.on('open', () => {
+        console.log("connection opened!")
+        ws.send(JSON.stringify(obj))
+        ws.disconnect()
+    });
+
+    return false
+ 
 }

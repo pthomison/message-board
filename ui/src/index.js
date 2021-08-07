@@ -1,7 +1,12 @@
-import _ from './functions.js'
+import 'bootstrap';
 
+import { ConnectToWSS, RegisterFormEvents } from './functions.js'
 
+import "./style.scss";
 
-connectToWSS()
+console.log("roger doger")
+
+RegisterFormEvents()
+ConnectToWSS()
 
 console.log("alpha beta gamma delta")

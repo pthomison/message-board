@@ -5,10 +5,12 @@ import (
 	"net/http"
 
 	utils "github.com/pthomison/golang-utils"
+	"golang.org/x/net/websocket"
 )
 
 type MessageBoard struct {
-	Messages []Message
+	Messages    []Message
+	Connections map[*websocket.Conn]chan Message
 }
 
 func (s *server) messageBoardHandler(w http.ResponseWriter, r *http.Request) {

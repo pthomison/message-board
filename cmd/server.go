@@ -31,9 +31,7 @@ func RunServer(uiAssests embed.FS) {
 
 	http.Handle("/message-stream", websocket.Handler(s.MessageStream))
 
-	// http.Handle("/echo", websocket.Handler(EchoServer))
-
-	// http.Handle("/ping", websocket.Handler(PingServer))
+	http.Handle("/message-receive", websocket.Handler(s.MessageReceive))
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
